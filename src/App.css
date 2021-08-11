@@ -36,3 +36,16 @@
     transform: rotate(360deg);
   }
 }
+
+.Main-div {
+  display: flex;
+  text-align: center;
+  align-self: center;
+  
+  justify-content: center;
+}
+
+
+.Search-div {
+  border: 1px black solid;
+}

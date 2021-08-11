@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import foods from './foods.json';
 import FoodBox from './components/FoodBox';
 import FoodForm from './components/FoodForm';
+import TodaysFood from './components/TodaysFood';
 import 'bulma/css/bulma.css';
 import './App.css';
 
@@ -36,12 +37,25 @@ class App extends React.Component {
     return (
         <div className="App">
           <FoodForm onSubmit={this.addFood}/>
+          
+          Search Food :
           <SearchBar value={this.state.searchValue} onChange={this.handleChange}/>
-          {filteredFood.map((food) => {
-            return (
-              <FoodBox food={food} />
-            )
-          })}
+          <div className = "Main-div">
+            
+            <div>
+            {filteredFood.map((food) => {
+              return (
+                <FoodBox food={food} />
+              )
+            })}
+            </div>
+            <div>
+            <TodaysFood className="Search-div"/>
+            </div>
+            
+
+          </div>
+          
           
         </div>
       );
