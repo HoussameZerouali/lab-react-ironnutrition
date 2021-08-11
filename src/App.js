@@ -1,26 +1,58 @@
-import React from 'react';
+import React, {Component} from 'react';
 import logo from './logo.svg';
+import foods from './foods.json';
+import FoodBox from './components/FoodBox';
+import FoodForm from './components/FoodForm';
+import 'bulma/css/bulma.css';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+
+
+class App extends React.Component {
+  state = {
+    food: foods,
+    searchValue: "",
+  }
+
+
+  handleChange = (event) => {
+    
+    this.setState({
+      searchValue: event.target.value,
+    })
+    
+  }
+
+  addFood = (food) => {
+    this.setState({
+      food: [food, ...this.state.food]
+    })
+  }
+
+  render(){
+    const filteredFood = this.state.food.filter((food) => {
+      return food.name.startsWith(this.state.searchValue);
+    })
+    return (
+        <div className="App">
+          <FoodForm onSubmit={this.addFood}/>
+          <SearchBar value={this.state.searchValue} onChange={this.handleChange}/>
+          {filteredFood.map((food) => {
+            return (
+              <FoodBox food={food} />
+            )
+          })}
+          
+        </div>
+      );
+    }
+  }
+  
 
 export default App;
+
+class SearchBar extends React.Component {
+  render() {
+    return <input value={this.props.value} onChange={this.props.onChange} />
+  }
+}
